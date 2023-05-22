@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import usePokedexContext from '../hooks/usePokedexContext';
-import Search from './Search';
 
-export default function Aside() {
+import usePokedexContext from '../hooks/usePokedexContext';
+import Search from '../components/Search';
+
+export default function AsideSection() {
   const { pokemonsSelected, filterPokemons, pokemonsFiltered, resetFilter, searchValues } =
     usePokedexContext();
 
@@ -42,10 +43,10 @@ export default function Aside() {
 
       <button
         onClick={filterPokemons}
-        className={`bg-gradient-to-r from-red-400 to-red-800 text-white rounded-full hover:brightness-105 hover:shadow-md hover:shadow-gray-400  ${
+        className={`bg-gradient-to-r from-red-400 to-red-800 text-white rounded-full hover:brightness-105 hover:shadow-md hover:shadow-gray-400 md:transition-all ${
           pokemonsSelected.length !== 0
             ? 'opacity-100 w-full md:w-auto transition-all duration-500 px-4 py-1'
-            : 'w-0 opacity-20 overflow-hidden'
+            : 'w-0 h-0 opacity-20 overflow-hidden'
         }`}
       >
         Delete pokemons
@@ -57,7 +58,7 @@ export default function Aside() {
           ${
             pokemonsFiltered.length !== 0 || searchValues.name || searchValues.ability
               ? 'opacity-100 w-full md:w-auto transition-all duration-500'
-              : 'w-0 opacity-0'
+              : 'w-0 h-0 opacity-0'
           }
           `}
       >

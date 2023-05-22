@@ -1,5 +1,8 @@
 import { ChangeEvent } from 'react';
+
 import usePokedexContext from '../hooks/usePokedexContext';
+
+import SearchInput from './SearchInput';
 
 export default function Search() {
   const { searchValues, setSearchValues } = usePokedexContext();
@@ -11,32 +14,31 @@ export default function Search() {
     }));
   };
 
+  const handleResetValue = (key: string) => {
+    setSearchValues((prevState) => ({
+      ...prevState,
+      [key]: '',
+    }));
+  };
+
   return (
     <div className="px-4">
-      <div className="flex flex-col gap-2 mb-4">
-        <label htmlFor="name">Search by Name</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          onChange={handleChange}
-          className="border-2 border-gray-400 rounded-full px-2 py-1 outline-none focus:shadow-md transition-shadow"
-          autoComplete="off"
-          value={searchValues.name}
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="ability">Search by Ability</label>
-        <input
-          type="text"
-          name="ability"
-          id="ability"
-          onChange={handleChange}
-          className="border-2 border-gray-400 rounded-full px-2 py-1 outline-none focus:shadow-md transition-shadow"
-          autoComplete="off"
-          value={searchValues.ability}
-        />
-      </div>
+      <SearchInput
+        id="name"
+        label="Search by Name"
+        placeholder="Pikachu"
+        value={searchValues.name}
+        handleChange={handleChange}
+        handleReset={handleResetValue}
+      />
+      <SearchInput
+        id="ability"
+        label="Search by Ability/Abilities"
+        placeholder="static, lightning"
+        value={searchValues.ability}
+        handleChange={handleChange}
+        handleReset={handleResetValue}
+      />
     </div>
   );
 }

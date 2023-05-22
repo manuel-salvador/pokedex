@@ -1,9 +1,10 @@
 import { createContext, useEffect, useState, Dispatch, SetStateAction } from 'react';
+
 import { Pokedex } from '../types';
 import { getPokemons } from '../api/pokeAPI';
 
 export interface IPokedexContext {
-  pokemons: Pokedex;
+  pokemons: Pokedex | [];
   loading: boolean;
   loadMoreData: () => void;
   updateSelectPokemon: (pokemonId: number) => void;
@@ -92,21 +93,27 @@ function PokedexProvider({ children }: { children: JSX.Element }) {
     setSearchValues({ name: '', ability: '' });
   };
 
-  let pokedex = pokemonsFiltered.length === 0 ? pokemons : pokemonsFiltered;
+  const pokedex = pokemonsFiltered.length === 0 ? pokemons : pokemonsFiltered;
   let searchedPokemons: Pokedex = [];
 
   if (searchValues.name || searchValues.ability) {
     const searchNameValue = searchValues.name.toLowerCase();
     const searchAbilityValue = searchValues.ability.toLowerCase();
+    const abilitiesSearchArray = searchAbilityValue
+      .split(',')
+      .map((ability) => ability.trim().toLowerCase());
 
     searchedPokemons = pokedex.filter((pokemon) => {
-      let pokemonName = pokemon.name.toLowerCase();
-      let pokemonAbilities = pokemon.abilities.map((ability) => ability.ability.name);
+      const pokemonName = pokemon.name.toLowerCase();
+      const pokemonAbilities = pokemon.abilities.map((ability) => ability.ability.name);
 
       const hasMatchingName = searchNameValue ? pokemonName.includes(searchNameValue) : true;
-      const hasMatchingAbility = searchAbilityValue
-        ? pokemonAbilities.some((ability) => ability.includes(searchAbilityValue))
-        : true;
+      const hasMatchingAbility =
+        searchAbilityValue.length > 0
+          ? abilitiesSearchArray.every((searchAbility) =>
+              pokemonAbilities.some((ability) => ability.includes(searchAbility)),
+            )
+          : true;
 
       return hasMatchingName && hasMatchingAbility;
     });

@@ -1,13 +1,11 @@
 import useInifinteScroll from '../hooks/useInifinteScroll';
 import usePokedexContext from '../hooks/usePokedexContext';
-import { Pokedex } from '../types';
+
 import Card from './Card';
 import Loading from './Loading';
 
-type Props = { pokemons: Pokedex };
-
-export default function PokemonList({ pokemons }: Props) {
-  const { loading, loadMoreData } = usePokedexContext();
+export default function PokemonList() {
+  const { pokemons, loading, loadMoreData } = usePokedexContext();
   const { scrollRef } = useInifinteScroll(loadMoreData);
 
   return (

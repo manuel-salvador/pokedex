@@ -7,7 +7,7 @@ interface IGetPokemons {
 }
 
 export async function getPokemons(
-  params: IGetPokemons
+  params: IGetPokemons,
 ): Promise<{ data: Pokedex; nextUrl: string | null }> {
   const apiUrl = params.nextUrl || `${POKEAPI_URL}pokemon?limit=${params.limit}`;
 

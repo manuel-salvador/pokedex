@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { PokemonFiltered } from '../types';
 import usePokedexContext from '../hooks/usePokedexContext';
 
@@ -44,7 +45,7 @@ export default function Card({ pokemon }: Props) {
           </div>
         </div>
         <span className="block pl-3 pt-3 font-bold text-lg text-white/70 leading-none">{`#${formatPokemonNumber(
-          pokemon.id
+          pokemon.id,
         )}`}</span>
         <figure className="w-40 h-40 mx-auto relative">
           <img

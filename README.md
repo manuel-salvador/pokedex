@@ -10,4 +10,5 @@ Especificaciones:
 
 Pendiente:
 
-- [ ] Filtrar por mas de una habilidad
+- [ ] Persistencia en LocalStorage
+- [ ] Buscar por tipos de Pokémon
