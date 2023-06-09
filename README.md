@@ -13,3 +13,4 @@ Pendiente:
 
 - [ ] Persistencia en LocalStorage
 - [ ] Buscar por tipos de Pokémon
+- [ ] Add React Query
